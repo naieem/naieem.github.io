@@ -29,7 +29,7 @@ $(function() {
                     email: email,
                     message: message
                 },
-                dataType: "json"
+                dataType: "json",
                 success: function(res) {
                     // Enable button & show success message
                     $("#btnSubmit").attr("disabled", false);
