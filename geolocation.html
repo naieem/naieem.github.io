@@ -60,10 +60,11 @@ var destinationB = {lat: 50.087, lng: 14.421};
         var bounds = new google.maps.LatLngBounds;
         var markersArray = [];
 
-        var origin1 = {lat: 55.93, lng: -3.118};
-        var origin2 = 'Greenwich, England';
-        var destinationA = 'Stockholm, Sweden';
-        var destinationB = {lat: 50.087, lng: 14.421};
+        //var origin1 = {lat: 55.93, lng: -3.118};
+        var origin="Dhaka,Bangladesh";
+        //var origin2 = 'Greenwich, England';
+        var destinationA = 'Dhaka,Bangladesh';
+        var destinationB = 'Rajshahi,Bangladesh';
 
         var destinationIcon = 'https://chart.googleapis.com/chart?' +
             'chst=d_map_pin_letter&chld=D|FF0000|000000';
@@ -77,7 +78,7 @@ var destinationB = {lat: 50.087, lng: 14.421};
 
         var service = new google.maps.DistanceMatrixService;
         service.getDistanceMatrix({
-          origins: [origin1, origin2],
+          origins: [origin],
           destinations: [destinationA, destinationB],
           travelMode: 'DRIVING',
           unitSystem: google.maps.UnitSystem.METRIC,
