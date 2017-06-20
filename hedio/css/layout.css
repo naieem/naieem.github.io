@@ -561,7 +561,7 @@ body {
 	-webkit-text-size-adjust: 100%;
 	margin: 0;
 	padding: 0;
-	padding-top: 81px;
+	/*padding-top: 81px;*/
 }
 h1, h2, h3, h4, h5, h6, legend {
 	font-family: 'Roboto',sans-serif;
@@ -742,7 +742,7 @@ hr {
 
 @media(min-width:768px){
 	
-	body{padding-top: 88px;}
+	/*body{padding-top: 88px;}*/
 	h1 {
 		font-size: 40px;
 	}

@@ -1,5 +1,5 @@
 /** Used Only For Touch Devices **/
-$(document).ready(function() { 
+jQuery(document).ready(function($) { 
 
 	// for touch devices: add class cs-hover to the figures when touching the items
 	if( Modernizr.touch ) {
