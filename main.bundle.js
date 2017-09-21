@@ -89,6 +89,7 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__content_content_component__ = __webpack_require__("./src/app/content/content.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__footer_footer_component__ = __webpack_require__("./src/app/footer/footer.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__service_dataservice_service__ = __webpack_require__("./src/app/service/dataservice.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__right_sidebar_right_sidebar_component__ = __webpack_require__("./src/app/right-sidebar/right-sidebar.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -109,6 +110,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
  * service declaration
  */
 
+
 var AppModule = (function () {
     function AppModule() {
     }
@@ -122,7 +124,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_6__head_head_component__["a" /* HeadComponent */],
             __WEBPACK_IMPORTED_MODULE_7__menu_menu_component__["a" /* MenuComponent */],
             __WEBPACK_IMPORTED_MODULE_8__content_content_component__["a" /* ContentComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__footer_footer_component__["a" /* FooterComponent */]
+            __WEBPACK_IMPORTED_MODULE_9__footer_footer_component__["a" /* FooterComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__right_sidebar_right_sidebar_component__["a" /* RightSidebarComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -149,7 +152,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, ".frm {\r\n    padding: 50px;\r\n}", ""]);
+exports.push([module.i, ".frm {\r\n    padding: 50px;\r\n    float: left;\r\n}", ""]);
 
 // exports
 
@@ -162,7 +165,7 @@ module.exports = module.exports.toString();
 /***/ "./src/app/content/content.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-sidebar></app-sidebar>\n<div class=\"frm\">\n    <li *ngFor=\"let comment of data\">\n        {{comment.title}}\n    </li>\n</div>"
+module.exports = "<app-sidebar [description]=\"parentstring\" (notify)='onNotify($event)' [fromParent]=\"parentStringToEmit\"></app-sidebar>\n<div class=\"frm\">\n    <li *ngFor=\"let comment of data\" (click)=\"popup()\">\n        {{comment.title}}\n    </li>\n</div>\n<app-right-sidebar [fromLeftSidebar]=\"stringToRightSidebar\"></app-right-sidebar>"
 
 /***/ }),
 
@@ -185,12 +188,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ContentComponent = (function () {
+    /** end of declaration of local variables */
     function ContentComponent(dataservice) {
         this.dataservice = dataservice;
+        this.parentstring = "this is from parent";
     }
+    /**
+     * Getting data via http call
+     */
     ContentComponent.prototype.loadData = function () {
         var _this = this;
-        // Get all data
         this.dataservice.getDatas()
             .subscribe(function (value) {
             _this.data = value;
@@ -199,6 +206,20 @@ var ContentComponent = (function () {
             console.log(err);
         });
     };
+    ContentComponent.prototype.popup = function () {
+        alert("sdfdsf");
+    };
+    /**
+     * Function calls when notification emits from left sidebar
+     * @param message
+     */
+    ContentComponent.prototype.onNotify = function (message) {
+        this.parentStringToEmit = message;
+        this.stringToRightSidebar = message;
+    };
+    /**
+     * function calls after constructor
+     */
     ContentComponent.prototype.ngOnInit = function () {
         this.loadData();
     };
@@ -226,7 +247,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, ".container {\r\n    background-color: #1372CC;\r\n}", ""]);
+exports.push([module.i, ".container {\r\n    background-color: #1372CC;\r\n    float: left;\r\n    width: 100%;\r\n}", ""]);
 
 // exports
 
@@ -401,6 +422,71 @@ MenuComponent = __decorate([
 
 /***/ }),
 
+/***/ "./src/app/right-sidebar/right-sidebar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".container {\r\n    float: right;\r\n    background-color: #540EF5;\r\n    font-size: 25px;\r\n    padding: 50px;\r\n    color: #ffffff;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "./src/app/right-sidebar/right-sidebar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\n    right-sidebar works!{{title}}\n    <p>{{fromLeftSidebar}}</p>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/right-sidebar/right-sidebar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RightSidebarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var RightSidebarComponent = (function () {
+    function RightSidebarComponent() {
+    }
+    RightSidebarComponent.prototype.ngOnInit = function () {
+    };
+    return RightSidebarComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Input */])(),
+    __metadata("design:type", String)
+], RightSidebarComponent.prototype, "fromLeftSidebar", void 0);
+RightSidebarComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'app-right-sidebar',
+        template: __webpack_require__("./src/app/right-sidebar/right-sidebar.component.html"),
+        styles: [__webpack_require__("./src/app/right-sidebar/right-sidebar.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], RightSidebarComponent);
+
+//# sourceMappingURL=right-sidebar.component.js.map
+
+/***/ }),
+
 /***/ "./src/app/service/dataservice.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -473,7 +559,7 @@ module.exports = module.exports.toString();
 /***/ "./src/app/sidebar/sidebar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    sidebar works! {{title}}\n</div>"
+module.exports = "<div class=\"container\">\n    sidebar works! {{title}}\n    <p>{{description}}</p>\n    <p>{{fromParent}}</p>\n    <span (click)='onClick()'>Click me please!</span>\n</div>"
 
 /***/ }),
 
@@ -495,12 +581,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var SidebarComponent = (function () {
     function SidebarComponent() {
+        this.notify = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
         this.title = "Title from sidebar";
     }
     SidebarComponent.prototype.ngOnInit = function () {
     };
+    SidebarComponent.prototype.onClick = function () {
+        debugger;
+        this.notify.emit('text from left sidebar');
+    };
     return SidebarComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Input */])(),
+    __metadata("design:type", String)
+], SidebarComponent.prototype, "description", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Input */])(),
+    __metadata("design:type", String)
+], SidebarComponent.prototype, "fromParent", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]) === "function" && _a || Object)
+], SidebarComponent.prototype, "notify", void 0);
 SidebarComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'app-sidebar',
@@ -510,6 +613,7 @@ SidebarComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], SidebarComponent);
 
+var _a;
 //# sourceMappingURL=sidebar.component.js.map
 
 /***/ }),
